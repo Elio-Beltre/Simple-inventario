@@ -17,16 +17,15 @@ public class SimpleInventario {
         }
 
     }
-    public static String obtenerPrecioArticulo(String articulo,double precio){
-        double formula =  (Math.random() * 5000) + 100;
-        if (articulo.startsWith("mar")&&precio>=0.00){
-            return "Articulo "+articulo + "Tiene un valor de RD$ " + formula;
-        } else if (articulo.startsWith("tab")||precio>=12000.00){
-            return "Articulo "+ articulo+" tiene un valor que sobrepasa los 12,000.00"+"el monto es de RD$ " + formula;
-        }else {
-            return "ninguno de los escenarios pudo aplicar";
+    public static double obtenerPrecioArticulo(){
+        double precio =  (Math.random() * 5000) + 100;
+        if (precio>0){
+            return precio;
+        }else{
+            return  -1;
         }
 
+        //return precio > 0 ? precio : -1;
     }
     public static void imprimirInventario(){
         Scanner scanner = new Scanner(System.in);
@@ -50,6 +49,29 @@ public class SimpleInventario {
 
 
     }
+    public static void modificarArticulo(){
+        String nombre = obtenerNombreArticulo();
+        double precio = obtenerPrecioArticulo();
+        if (nombre.startsWith("A")||nombre.startsWith("D")){
+            obtenerPrecioArticulo();
+            if (precio>150 && precio<=250){
+                precio += (precio * 0.02); //precio = precio + (precio *0.02)
+                System.out.println(nombre +" "+ precio);
+            } else if (precio>250 && precio<=500){
+                precio += (precio *0.08); // precio = precio +(precio *0.08)
+                System.out.println(nombre + " " + precio);
+            }else {
+            precio += (precio*0.12); //precio = precio - (precio *0.12)
+                System.out.println(nombre + " " + precio);
+            }
+        } else if (nombre.startsWith("C")||nombre.startsWith("M")){
+            precio -= (precio*0.20); //precio = precio -(precio *0.20)
+            System.out.println(nombre+ " " + precio);
+
+        }
+
+    }
+
     public static void main(String[] args) {
         obtenerNombreArticulo();
     }
